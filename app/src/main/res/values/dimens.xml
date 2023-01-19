@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="h1">30dp</dimen>
+    <dimen name="start">15dp</dimen>
+    <dimen name="end">15dp</dimen>
+    <dimen name="top_min">7dp</dimen>
+    <dimen name="end_min">7dp</dimen>
+    <dimen name="start_min">7dp</dimen>
+    <dimen name="top">15dp</dimen>
+    <dimen name="radius">10dp</dimen>
+    <dimen name="elevation">6dp</dimen>
+    <dimen name="fav">30dp</dimen>
+
+</resources>
