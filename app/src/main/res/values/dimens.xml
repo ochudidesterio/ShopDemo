@@ -9,6 +9,6 @@
     <dimen name="top">15dp</dimen>
     <dimen name="radius">10dp</dimen>
     <dimen name="elevation">6dp</dimen>
-    <dimen name="fav">30dp</dimen>
+    <dimen name="fav">35dp</dimen>
 
 </resources>

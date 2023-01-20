@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
 
-@Entity(tableName = "product")
-data class Product(
+@Entity(tableName = "favourites")
+data class Favourites(
     @SerializedName("category")
     @Expose
     val category: String,

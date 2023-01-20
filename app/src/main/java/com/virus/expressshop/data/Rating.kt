@@ -11,4 +11,9 @@ data class Rating(
     @SerializedName("rate")
     @Expose
     val rate: Double
-)
+
+) {
+    override fun toString(): String {
+        return "Rating(count=$count, rate=$rate)"
+    }
+}

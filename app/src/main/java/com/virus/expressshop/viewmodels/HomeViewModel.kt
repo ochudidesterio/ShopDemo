@@ -4,17 +4,45 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.virus.expressshop.data.Categories
+import com.virus.expressshop.data.Favourites
 import com.virus.expressshop.data.Product
 import com.virus.expressshop.data.ProductList
+import com.virus.expressshop.db.ShopDatabase
 import com.virus.expressshop.network.RetrofitInstance
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel():ViewModel() {
+class HomeViewModel(val shopDatabase: ShopDatabase):ViewModel() {
     private var productsListData = MutableLiveData<List<Product>>()
     private var categoriesListData = MutableLiveData<List<String>>()
+
+    fun insertFavourites(favourites: Favourites){
+        viewModelScope.launch {
+            shopDatabase.favoritesDao().insertFavourites(favourites)
+        }
+    }
+    fun deleteFavorites(favourites: Favourites){
+        viewModelScope.launch {
+            shopDatabase.favoritesDao().deleteFavourites(favourites)
+        }
+    }
+    fun upDateProduct(product: Product){
+        viewModelScope.launch {
+            shopDatabase.productDao().upDateProduct(product)
+        }
+    }
+    fun insertAll(product: List<Product>){
+        viewModelScope.launch {
+            shopDatabase.productDao().insertAll(product)
+        }
+    }
+    fun getAllCachedProduct():Flow<List<Product>> = shopDatabase.productDao().getAllProducts()
+    fun getAllFavourites():Flow<List<Favourites>> = shopDatabase.favoritesDao().getAllFavProducts()
 
     fun getAllProducts(){
         RetrofitInstance
@@ -24,6 +52,7 @@ class HomeViewModel():ViewModel() {
                 override fun onResponse(call: Call<ProductList>, response: Response<ProductList>) {
                     if(response.body() != null){
                         productsListData.value = response.body()
+                        insertAll(response.body()!!)
                     }
                 }
 

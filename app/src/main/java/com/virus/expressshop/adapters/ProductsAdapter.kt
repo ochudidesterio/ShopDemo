@@ -1,6 +1,5 @@
 package com.virus.expressshop.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,6 +12,7 @@ import com.virus.expressshop.databinding.ProductBinding
 
 class ProductsAdapter :ListAdapter<Product,ProductsAdapter.ProductHolder>(DiffCallBack) {
     lateinit var onClickFavIcon:((Product)->Unit)
+    lateinit var onClickProductImage:((Product)->Unit)
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Product>(){
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
@@ -37,6 +37,9 @@ class ProductsAdapter :ListAdapter<Product,ProductsAdapter.ProductHolder>(DiffCa
             product.isFavorite = !product.isFavorite
             onClickFavIcon.invoke(product)
         }
+        holder.binding.imageView.setOnClickListener {
+            onClickProductImage.invoke(product)
+        }
 
 
     }
@@ -56,6 +59,7 @@ class ProductsAdapter :ListAdapter<Product,ProductsAdapter.ProductHolder>(DiffCa
             }else{
                 binding.favorite.setImageDrawable(itemView.resources.getDrawable(R.drawable.ic_baseline_favorite_border_24))
             }
+
         }
     }
 
