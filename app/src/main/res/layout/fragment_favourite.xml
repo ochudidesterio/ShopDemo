@@ -6,6 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.FavouriteFragment">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:background="@color/primaryDarkColor"
+        app:title="My Favourites"
+        app:titleTextColor="@color/white"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/toolBar"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

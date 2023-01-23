@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
 
-@Entity(tableName = "product")
-data class Product(
+@Entity(tableName = "cart")
+data class Cart(
     @SerializedName("category")
     @Expose
     val category: String,
@@ -24,7 +24,7 @@ data class Product(
     val image: String,
     @SerializedName("price")
     @Expose
-    val price: Double,
+    var price: Double,
     @SerializedName("rating")
     @Expose
     val rating: Rating,
@@ -33,11 +33,15 @@ data class Product(
     val title: String,
     @SerializedName("isFavorite")
     @Expose
-    var isFavorite: Boolean
+    var isFavorite: Boolean,
+    @SerializedName("count")
+@Expose
+var count: Int
+
 
 
 ) {
     override fun toString(): String {
-        return "Product(category='$category', description='$description', id=$id, image='$image', price=$price, rating=$rating, title='$title', isFavorite=$isFavorite)"
+        return "Cart(category='$category', description='$description', id=$id, image='$image', price=$price, rating=$rating, title='$title', isFavorite=$isFavorite, count=$count)"
     }
 }

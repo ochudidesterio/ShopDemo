@@ -10,6 +10,7 @@
     android:layout_width="match_parent"
     android:background="@color/primaryColor"
     android:paddingTop="5dp"
+    android:id="@+id/bg"
     android:paddingBottom="5dp"
     android:layout_height="match_parent">
     <TextView

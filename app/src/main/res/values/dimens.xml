@@ -10,5 +10,6 @@
     <dimen name="radius">10dp</dimen>
     <dimen name="elevation">6dp</dimen>
     <dimen name="fav">35dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

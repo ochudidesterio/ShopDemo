@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.virus.expressshop.R
 import com.virus.expressshop.activities.MainActivity
 import com.virus.expressshop.adapters.FavouritesAdapter
+import com.virus.expressshop.data.Cart
+import com.virus.expressshop.data.Product
 import com.virus.expressshop.databinding.FragmentFavouriteBinding
 import com.virus.expressshop.viewmodels.HomeViewModel
 import kotlinx.coroutines.launch
@@ -35,11 +38,24 @@ class FavouriteFragment : Fragment() {
         viewModel = (activity as MainActivity).viewModel
         favouritesAdapter = FavouritesAdapter()
         onClickFavItem()
+        onClickAdd()
+    }
+
+    private fun onClickAdd() {
+        favouritesAdapter.onClickAddFav = {
+            val cart = Cart(it.category,it.description,it.id,it.image,it.price,it.rating,it.title,it.isFavorite,1)
+            lifecycleScope.launch {
+                viewModel.addToCart(cart)
+            }
+        }
     }
 
     private fun onClickFavItem() {
         favouritesAdapter.onClickFavorite = {
-            Log.e( "onClickFavItem: ",it.toString() )
+            val product = Product(it.category,it.description,it.id,it.image,it.price,it.rating,it.title,it.isFavorite)
+            viewModel.product.value = product
+            val directions = FavouriteFragmentDirections.actionFavouriteFragmentToProductFragment()
+            findNavController().navigate(directions)
         }
     }
 

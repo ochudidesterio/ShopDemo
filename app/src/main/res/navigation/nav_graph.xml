@@ -9,7 +9,13 @@
         android:id="@+id/homeFragment"
         android:name="com.virus.expressshop.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_productFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/productFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.virus.expressshop.fragments.CartFragment"
@@ -19,10 +25,23 @@
         android:id="@+id/favouriteFragment"
         android:name="com.virus.expressshop.fragments.FavouriteFragment"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_productFragment"
+            app:popUpTo="@id/favouriteFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/productFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.virus.expressshop.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.virus.expressshop.fragments.ProductFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product" >
+    </fragment>
+
 </navigation>

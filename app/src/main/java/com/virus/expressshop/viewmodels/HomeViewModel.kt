@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.virus.expressshop.data.Categories
-import com.virus.expressshop.data.Favourites
-import com.virus.expressshop.data.Product
-import com.virus.expressshop.data.ProductList
+import com.virus.expressshop.data.*
 import com.virus.expressshop.db.ShopDatabase
 import com.virus.expressshop.network.RetrofitInstance
 import kotlinx.coroutines.flow.Flow
@@ -20,6 +17,19 @@ import retrofit2.Response
 class HomeViewModel(val shopDatabase: ShopDatabase):ViewModel() {
     private var productsListData = MutableLiveData<List<Product>>()
     private var categoriesListData = MutableLiveData<List<String>>()
+    var product = MutableLiveData<Product>()
+
+    fun addToCart(cart: Cart){
+        viewModelScope.launch {
+            shopDatabase.cartDao().insertCart(cart)
+        }
+    }
+    fun removeFromCart(cart: Cart){
+        viewModelScope.launch {
+            shopDatabase.cartDao().deleteCart(cart)
+        }
+    }
+    fun getCartItems():Flow<List<Cart>> = shopDatabase.cartDao().getCartItems()
 
     fun insertFavourites(favourites: Favourites){
         viewModelScope.launch {
@@ -84,6 +94,9 @@ class HomeViewModel(val shopDatabase: ShopDatabase):ViewModel() {
     }
     fun CategoriesObserver():LiveData<List<String>>{
         return categoriesListData
+    }
+    fun getProduct():LiveData<Product>{
+        return product
     }
 
 }

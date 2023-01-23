@@ -13,6 +13,7 @@ import com.virus.expressshop.databinding.ProductBinding
 class ProductsAdapter :ListAdapter<Product,ProductsAdapter.ProductHolder>(DiffCallBack) {
     lateinit var onClickFavIcon:((Product)->Unit)
     lateinit var onClickProductImage:((Product)->Unit)
+    lateinit var onClickAdd:((Product)->Unit)
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Product>(){
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
@@ -39,6 +40,9 @@ class ProductsAdapter :ListAdapter<Product,ProductsAdapter.ProductHolder>(DiffCa
         }
         holder.binding.imageView.setOnClickListener {
             onClickProductImage.invoke(product)
+        }
+        holder.binding.add.setOnClickListener {
+            onClickAdd.invoke(product)
         }
 
 

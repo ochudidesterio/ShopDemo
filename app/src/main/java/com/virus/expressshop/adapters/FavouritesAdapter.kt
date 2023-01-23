@@ -11,6 +11,7 @@ import com.virus.expressshop.databinding.FavItemBinding
 
 class FavouritesAdapter:ListAdapter<Favourites,FavouritesAdapter.FavoritesHolder>(DiffUtilCallBack) {
     lateinit var onClickFavorite:((Favourites)->Unit)
+    lateinit var onClickAddFav:((Favourites)->Unit)
     companion object DiffUtilCallBack : DiffUtil.ItemCallback<Favourites>() {
         override fun areItemsTheSame(oldItem: Favourites, newItem: Favourites): Boolean {
             return oldItem == newItem
@@ -38,6 +39,9 @@ class FavouritesAdapter:ListAdapter<Favourites,FavouritesAdapter.FavoritesHolder
         holder.bind(favourites)
         holder.binding.imageView.setOnClickListener {
             onClickFavorite.invoke(favourites)
+        }
+        holder.binding.add.setOnClickListener {
+            onClickAddFav.invoke(favourites)
         }
     }
 }
