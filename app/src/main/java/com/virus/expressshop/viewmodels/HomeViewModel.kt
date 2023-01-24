@@ -17,7 +17,19 @@ import retrofit2.Response
 class HomeViewModel(val shopDatabase: ShopDatabase):ViewModel() {
     private var productsListData = MutableLiveData<List<Product>>()
     private var categoriesListData = MutableLiveData<List<String>>()
+    private var categories = mutableListOf("All")
+    private  var statuList = mutableListOf<CategoryStatus>()
     var product = MutableLiveData<Product>()
+
+    fun getActiveStatus(status: String):Flow<List<Product>> = shopDatabase.productDao().getActiveStatus(status)
+
+    fun insertCategoryStatus(list:List<CategoryStatus>){
+        viewModelScope.launch {
+            shopDatabase.categoryStatusDao().insertAll(list)
+        }
+    }
+
+    fun getCatStatus():Flow<List<CategoryStatus>> = shopDatabase.categoryStatusDao().getCatStatus()
 
     fun addToCart(cart: Cart){
         viewModelScope.launch {
@@ -80,6 +92,12 @@ class HomeViewModel(val shopDatabase: ShopDatabase):ViewModel() {
                 override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                     if(response.body() != null){
                         categoriesListData.value = response.body()
+                        categories.addAll(response.body()!!)
+                        for (i in categories.indices){
+                           val categoryStatus = CategoryStatus( categories[i])
+                            statuList.add(categoryStatus)
+                        }
+                        insertCategoryStatus(statuList)
                     }
                 }
 

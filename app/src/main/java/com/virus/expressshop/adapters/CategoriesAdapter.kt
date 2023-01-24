@@ -3,15 +3,18 @@ package com.virus.expressshop.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.virus.expressshop.R
+import com.virus.expressshop.data.CategoryStatus
 import com.virus.expressshop.databinding.CategoryBinding
 
-class CategoriesAdapter( var onClickView:(item:String,view :View)->Unit):RecyclerView.Adapter<CategoriesAdapter.CategoriesHolder>() {
-    private var categories = ArrayList<String>()
-
-    fun setCategories(list: ArrayList<String>){
-        this.categories = list
+class CategoriesAdapter():RecyclerView.Adapter<CategoriesAdapter.CategoriesHolder>() {
+    private var categories = mutableListOf<CategoryStatus>()
+    private var selectedPosition = -1
+    lateinit var onClickView:(status:CategoryStatus)->Unit
+    fun setCategories(list: List<CategoryStatus>){
+        this.categories.addAll(list)
     }
     class CategoriesHolder(val binding: CategoryBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -22,12 +25,19 @@ class CategoriesAdapter( var onClickView:(item:String,view :View)->Unit):Recycle
     }
 
     override fun onBindViewHolder(holder: CategoriesHolder, position: Int) {
-        holder.binding.category.text = categories[position]
-        if(categories[position] == "All"){
-            holder.binding.bg.setBackgroundColor(holder.itemView.resources.getColor(R.color.Orange))
+        holder.binding.category.text = categories[position].category
+
+        holder.itemView.setOnClickListener {
+            onClickView.invoke(categories[position])
+            selectedPosition = holder.adapterPosition
+            notifyDataSetChanged()
         }
-        holder.binding.root.setOnClickListener {
-            onClickView.invoke(categories[position],holder.binding.bg)
+
+        if(selectedPosition ==position){
+            holder.binding.bg.setBackgroundColor(holder.itemView.resources.getColor(R.color.Orange))
+        }else{
+            holder.binding.bg.setBackgroundColor(holder.itemView.resources.getColor(R.color.primaryDarkColor))
+
         }
     }
 

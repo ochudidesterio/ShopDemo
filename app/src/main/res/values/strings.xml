@@ -16,4 +16,8 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="forgot_password"><a href="">Forgot password?</a></string>
+    <string name="sign_up"><a href="">Sign Up</a></string>
+    <string name="sign_in"><a href="">Sign In</a></string>
+
 </resources>

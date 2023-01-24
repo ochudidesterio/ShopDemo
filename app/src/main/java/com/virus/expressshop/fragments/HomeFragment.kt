@@ -1,22 +1,16 @@
 package com.virus.expressshop.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.virus.expressshop.R
 import com.virus.expressshop.activities.MainActivity
-import com.virus.expressshop.activities.ProductViewActivity
 import com.virus.expressshop.adapters.CategoriesAdapter
 import com.virus.expressshop.adapters.ProductsAdapter
 import com.virus.expressshop.data.Cart
@@ -31,10 +25,9 @@ class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     lateinit var productsAdapter: ProductsAdapter
     lateinit var categoriesAdapter: CategoriesAdapter
-    private lateinit var  viewModel: HomeViewModel
-    private var favoritesList : List<Favourites>? = null
-    private var productList : List<Product>? = null
-    private var categories = mutableListOf("All")
+    private lateinit var viewModel: HomeViewModel
+    private var favoritesList: List<Favourites>? = null
+    private var productList: List<Product>? = null
 
 
     override fun onCreateView(
@@ -42,7 +35,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
+        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -59,7 +52,17 @@ class HomeFragment : Fragment() {
 
     private fun onClickAdd() {
         productsAdapter.onClickAdd = {
-            val cart = Cart(it.category,it.description,it.id,it.image,it.price,it.rating,it.title,it.isFavorite,1)
+            val cart = Cart(
+                it.category,
+                it.description,
+                it.id,
+                it.image,
+                it.price,
+                it.rating,
+                it.title,
+                it.isFavorite,
+                1
+            )
             lifecycleScope.launch {
                 viewModel.addToCart(cart)
             }
@@ -77,16 +80,23 @@ class HomeFragment : Fragment() {
     }
 
     private fun onFavIconClicked() {
-        productsAdapter.onClickFavIcon ={
+        productsAdapter.onClickFavIcon = {
             productsAdapter.notifyDataSetChanged()
             //viewModel.insertProduct(it)
-            var favourites = Favourites(it.category,it.description,it.id,it.image,it.price,it.rating,it.title,it.isFavorite)
-            if(favourites.isFavorite){
-                 viewModel.insertFavourites(favourites)
-                 //viewModel.insertProduct(it)
-            }else{
+            var favourites = Favourites(
+                it.category,
+                it.description,
+                it.id,
+                it.image,
+                it.price,
+                it.rating,
+                it.title,
+                it.isFavorite
+            )
+            if (favourites.isFavorite) {
+                viewModel.insertFavourites(favourites)
+            } else {
                 viewModel.deleteFavorites(favourites)
-                // viewModel.deleteProduct(it)
             }
         }
 
@@ -96,51 +106,77 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       loadCachedProduct();
-        viewModel.CategoriesObserver().observe(viewLifecycleOwner){
-            categories.addAll(it)
-            categoriesAdapter.setCategories(categories as ArrayList<String>)
-            binding.rvCategories.apply {
-                layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
-                adapter = categoriesAdapter
+        loadCachedProduct()
+        loadCategories()
+        binding.progress.visibility =View.VISIBLE
+
+        categoriesAdapter.onClickView = {
+            loadFavourites()
+           if(it.category == "All"){
+               loadCachedProduct()
+           }else{
+               loadProductByCategory(it.category)
+           }
+        }
+    }
+
+    private fun loadProductByCategory(category: String) {
+        lifecycleScope.launch {
+            viewModel.getActiveStatus(category).collect{
+                loadProducts(it)
             }
         }
-        categoriesAdapter.onClickView.apply {
+    }
 
+    private fun loadCategories() {
+        lifecycleScope.launch {
+            viewModel.getCatStatus().collect {
+                categoriesAdapter.setCategories(it)
+                binding.rvCategories.apply {
+                    layoutManager =
+                        LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                    adapter = categoriesAdapter
+                }
+            }
         }
     }
 
     private fun loadCachedProduct() {
+        loadFavourites()
         lifecycleScope.launch {
-            viewModel.getAllFavourites().collect{
-                favoritesList = it
-            } }
-        lifecycleScope.launch {
-            viewModel.getAllCachedProduct().collect{
-                productList =it
-                loadProducts()
+            viewModel.getAllCachedProduct().collect {
+                productList = it
+                loadProducts(productList!!)
             }
         }
-        }
+    }
 
-    private fun loadProducts() {
-        if (!favoritesList.isNullOrEmpty()){
-            for(fav in favoritesList!!){
-                for(prod in productList!!){
-                    if(fav.id == prod.id)
-                    {
+    private fun loadFavourites() {
+        lifecycleScope.launch {
+            viewModel.getAllFavourites().collect {
+                favoritesList = it
+            }
+        }
+    }
+
+    private fun loadProducts(list: List<Product>) {
+        if (!favoritesList.isNullOrEmpty()) {
+            for (fav in favoritesList!!) {
+                for (prod in list!!) {
+                    if (fav.id == prod.id) {
                         prod.isFavorite = true
                     }
                 }
             }
-            productsAdapter.submitList(productList)
+            productsAdapter.submitList(list)
 
-        }else{
-            productsAdapter.submitList(productList)
+        } else {
+            productsAdapter.submitList(list)
         }
-
+        binding.progress.visibility = View.INVISIBLE
         binding.rvProducts.apply {
-            layoutManager = GridLayoutManager(requireActivity(),2,GridLayoutManager.VERTICAL,false)
+            layoutManager =
+                GridLayoutManager(requireActivity(), 2, GridLayoutManager.VERTICAL, false)
             adapter = productsAdapter
         }
     }

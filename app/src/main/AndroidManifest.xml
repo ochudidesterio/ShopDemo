@@ -12,8 +12,24 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/Theme.ExpressShop"
         android:supportsRtl="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.RegisterActvity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.SplashScreen"
+            android:exported="false" />
         <activity
             android:name=".activities.ProductViewActivity"
             android:exported="false"
@@ -21,13 +37,13 @@
             android:theme="@style/Theme.ExpressShop" />
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/Theme.ExpressShop"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true"
+            android:theme="@style/Theme.ExpressShop">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
     </application>
 
