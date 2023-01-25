@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "5515478620",
+    "firebase_url": "https://hsgroup-b9020-default-rtdb.firebaseio.com",
+    "project_id": "hsgroup-b9020",
+    "storage_bucket": "hsgroup-b9020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5515478620:android:3be9122cce8e5aab0c8899",
+        "android_client_info": {
+          "package_name": "com.example.shopapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5515478620-ug94fepabpfu7164v9diojrm0kab3vvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvjzkMKUKq7y8A_DZ0hkbAmgPRhc4FOaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5515478620-ug94fepabpfu7164v9diojrm0kab3vvv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "5515478620-b3d7p41l0skm1q3s0nrar9mj5tdisqhi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shopapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5515478620:android:08ca81b63edc6a120c8899",
+        "android_client_info": {
+          "package_name": "com.virus.expressshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5515478620-ug94fepabpfu7164v9diojrm0kab3vvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvjzkMKUKq7y8A_DZ0hkbAmgPRhc4FOaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5515478620-ug94fepabpfu7164v9diojrm0kab3vvv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "5515478620-b3d7p41l0skm1q3s0nrar9mj5tdisqhi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shopapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

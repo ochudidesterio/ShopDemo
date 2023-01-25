@@ -38,11 +38,17 @@ lateinit var binding: FragmentCartBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.ptotal.visibility = View.INVISIBLE
+        binding.checkout.visibility = View.INVISIBLE
         lifecycleScope.launch {
             viewModel.getCartItems().collect{
                 cartAdapter.submitList(it)
                 binding.rvCart.apply {
                     adapter = cartAdapter
+                }
+                if(it.isNotEmpty()){
+                    binding.ptotal.visibility = View.VISIBLE
+                    binding.checkout.visibility = View.VISIBLE
                 }
             }
         }
