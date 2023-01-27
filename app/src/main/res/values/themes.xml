@@ -6,6 +6,7 @@
         <item name="colorPrimaryVariant">@color/primaryLightColor</item>
         <item name="colorOnPrimary">@color/primaryDarkColor</item>
         <item name="fontFamily">@font/poppins_light</item>
+        <item name="background">@color/background</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

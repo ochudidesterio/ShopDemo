@@ -12,9 +12,10 @@
     <com.google.android.material.appbar.CollapsingToolbarLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:contentScrim="@color/primaryColor"
+        app:contentScrim="@color/background"
         app:title="Meal name"
-        app:collapsedTitleTextColor="@color/white"
+        android:elevation="0dp"
+        app:collapsedTitleTextColor="@color/primaryColor"
         app:expandedTitleTextColor="@color/Orange"
         app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
         android:id="@+id/collapsingToolBar">
@@ -111,14 +112,15 @@
                 app:layout_constraintTop_toBottomOf="@id/description"
                 android:drawableLeft="@drawable/ic_baseline_add_shopping_cart_24"
                 android:text="Add to Cart"
+                android:textAllCaps="false"
                 android:drawableTint="@color/white"
                 android:id="@+id/btnAdd"
                 android:layout_marginTop="20dp"
-                android:paddingTop="5dp"
+                android:paddingTop="10dp"
                 android:textSize="18sp"
                 android:paddingBottom="5dp"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/Orange"/>
+                android:backgroundTint="@color/primaryDarkColor"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

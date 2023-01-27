@@ -42,13 +42,19 @@ lateinit var binding: FragmentCartBinding
         binding.checkout.visibility = View.INVISIBLE
         lifecycleScope.launch {
             viewModel.getCartItems().collect{
+                var total = 0.0
+                for(cart in it){
+                    total+=cart.price
+                }
                 cartAdapter.submitList(it)
                 binding.rvCart.apply {
                     adapter = cartAdapter
                 }
                 if(it.isNotEmpty()){
+
                     binding.ptotal.visibility = View.VISIBLE
                     binding.checkout.visibility = View.VISIBLE
+                    binding.total.text = "$ ${total}"
                 }
             }
         }
