@@ -28,6 +28,8 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private var favoritesList: List<Favourites>? = null
     private var productList: List<Product>? = null
+    val user = MainActivity.user
+    lateinit var username : String
 
 
     override fun onCreateView(
@@ -108,6 +110,7 @@ class HomeFragment : Fragment() {
 
         loadCachedProduct()
         loadCategories()
+
         binding.progress.visibility =View.VISIBLE
 
         categoriesAdapter.onClickView = {

@@ -21,10 +21,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.btnLogin.setOnClickListener {
-            val intent = Intent(this,MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            //login()
+//            val intent = Intent(this,MainActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(intent)
+            login()
         }
     }
 

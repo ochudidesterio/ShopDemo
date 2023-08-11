@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.virus.expressshop.R
+import com.virus.expressshop.activities.MainActivity
 import com.virus.expressshop.databinding.FragmentEditProfileBinding
 
 
 class EditProfileFragment : Fragment() {
+    val user = MainActivity.user
 
 private lateinit var binding: FragmentEditProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +27,13 @@ private lateinit var binding: FragmentEditProfileBinding
         binding = FragmentEditProfileBinding.inflate(layoutInflater,container,false)
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val profileUpdate = userProfileChangeRequest {
+            
+        }
     }
 
 }

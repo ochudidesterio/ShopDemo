@@ -42,7 +42,7 @@ class RegisterActvity : AppCompatActivity() {
         }
         auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(this){
             if (it.isSuccessful) {
-                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                Log.e( "signUp: ","user created" )
                 finish()
             } else {
                 Toast.makeText(this,it.exception.toString() , Toast.LENGTH_SHORT).show()
